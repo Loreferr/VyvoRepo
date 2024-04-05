@@ -1,6 +1,21 @@
+import Cardlist from "@/components/cardlist";
 import { ModeToggle } from "@/components/mode-toggle";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Button } from "@/components/ui/button";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+
 
 
 export default function Home() {
@@ -18,7 +33,44 @@ export default function Home() {
         </ul>
       </div>
       <div className="account items-center gap-4 flex z-10">
-        <Button variant={"outline"}>Login</Button>
+      <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">Login</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Login</DialogTitle>
+          <DialogDescription>
+            Make changes to your profile here. Click save when you re done.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="email" className="text-right">
+              Email
+            </Label>
+            <Input
+              id="email"
+              defaultValue="email"
+              className="col-span-3"
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="password" className="text-right">
+              Password
+            </Label>
+            <Input
+              id="password"
+              defaultValue="email"
+              className="col-span-3"
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button type="submit">Submit</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
         <Button variant={"outline"}>Register</Button>
         <ModeToggle></ModeToggle>
         
@@ -30,6 +82,11 @@ export default function Home() {
       <h1 className="text-8xl font-bold ">Lights Up The World</h1>
     
     </div>
+    
+    
+    <Cardlist></Cardlist>
+
+
     
     </main>
     
