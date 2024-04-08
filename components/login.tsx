@@ -16,7 +16,7 @@ import { Button } from "./ui/button";
 
 
 
-export const Login = () => {
+export const Login = ({onLoginSuccess}) => {
 
   
   const [formData, setFormData] = useState({
@@ -25,7 +25,7 @@ export const Login = () => {
     
     password: ''
   });
-  const [open, setOpen] = useState(false);
+  
 
   const handleInputChange = (event:any) => {
     const { name, value } = event.target;
@@ -53,7 +53,8 @@ export const Login = () => {
       if (responseData.username && responseData.accessToken) {
         console.log('Login effettuato con successo!', responseData);
         localStorage.setItem('accessToken', responseData.accessToken);
-        localStorage.setItem('username', formData.username);
+        localStorage.setItem('username', responseData.username);
+        onLoginSuccess(responseData)
         
 
         setFormData({
@@ -86,13 +87,13 @@ export const Login = () => {
         
       <Label>
         Username:
-        <Input type="text" name="username" value={formData.username} onChange={handleInputChange} />
+        <Input className='m-2' type="text" name="username" value={formData.username} onChange={handleInputChange} />
       </Label>
       
       
       <Label>
         Password:
-        <Input type="password" name="password" value={formData.password} onChange={handleInputChange} />
+        <Input className='mt-2' type="password" name="password" value={formData.password} onChange={handleInputChange} />
       </Label>
       
       <Button className='mt-4' variant={"outline"} type="submit"> Login</Button>
