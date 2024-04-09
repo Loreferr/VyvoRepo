@@ -5,6 +5,7 @@ import { Button } from './ui/button'
 import { Login } from './login'
 import { Register } from './register'
 import { ModeToggle } from './mode-toggle';
+import { Dropdownheader } from './dropdownheader'
 
 
 export const Header = () => {
@@ -19,15 +20,16 @@ export const Header = () => {
   useEffect(() => {
     const storedUserInfo = localStorage.getItem('username');
     if (storedUserInfo) {
-      const username = JSON.parse(storedUserInfo);
       
-      setUsername(username);
+      
+      setUsername(storedUserInfo);
       setIsLoggedIn(true);
     }
   }, []);
   
   const handleLogout = () => {
-    localStorage.removeItem('userInfo');
+    localStorage.removeItem('username');
+    localStorage.removeItem('accessToken');
     setUsername('');
     setIsLoggedIn(false);
   };
@@ -49,7 +51,8 @@ export const Header = () => {
       <div className="account items-center  gap-4 flex z-10">
         {isLoggedIn ? 
           <>
-          <Button variant={"outline"}>Profile</Button>
+          
+          <Dropdownheader></Dropdownheader>
           <Button variant={"outline"} onClick={handleLogout}>Logout</Button>
           <ModeToggle></ModeToggle>
           
