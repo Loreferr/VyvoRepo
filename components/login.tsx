@@ -54,6 +54,7 @@ export const Login = ({onLoginSuccess}) => {
         console.log('Login effettuato con successo!', responseData);
         localStorage.setItem('accessToken', responseData.accessToken);
         localStorage.setItem('username', responseData.username);
+        localStorage.setItem('isLoggedin', 'true');
         onLoginSuccess(responseData.username);
         
 

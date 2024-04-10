@@ -11,6 +11,7 @@ import { Dropdownheader } from './dropdownheader'
 export const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const login = window.localStorage.getItem('isLoggedin')
 
   const handleLoginSuccess = (username:any) => {
     setIsLoggedIn(true);
@@ -30,6 +31,7 @@ export const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('username');
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('isLoggedin');
     setUsername('');
     setIsLoggedIn(false);
   };
@@ -49,7 +51,7 @@ export const Header = () => {
         </ul>
       </div>
       <div className="account items-center  gap-4 flex z-10">
-        {isLoggedIn ? 
+        {login ? 
           <>
           
           <Dropdownheader></Dropdownheader>
