@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider";
 import { Montserrat } from "next/font/google"; 
 import { Header } from "@/components/header";
+import { Toaster } from "@/components/ui/toaster";
 
 
 
@@ -37,7 +38,8 @@ export default function RootLayout({
         disableTransitionOnChange
       >
         {children}
-      </ThemeProvider></body>
+      </ThemeProvider>
+      <Toaster /></body>
     </html>
   );
 }

@@ -8,17 +8,32 @@ import { ModeToggle } from './mode-toggle';
 import { Dropdownheader } from './dropdownheader'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import Link from 'next/link'
+import { toast } from './ui/use-toast'
 
 
 export const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const login = window.localStorage.getItem('isLoggedin')
+  
+  const handleRegisterSuccess = () => {
+    toast({
+      description: "Registration has been successful"
+    })
+  };
 
   const handleLoginSuccess = (username:any) => {
     setIsLoggedIn(true);
     setUsername(username);
+    toast({
+      description: "Login has been successful"
+    })
   };
+  const handleLoginError =() =>{
+    toast({
+      description: "Login failed"
+    })
+  }
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem('username');
@@ -71,8 +86,8 @@ export const Header = () => {
           </>
           :
           <>
-          <Login onLoginSuccess={handleLoginSuccess}></Login>
-          <Register></Register>
+          <Login onLoginSuccess={handleLoginSuccess} onLoginError={handleLoginError}></Login>
+          <Register onRegisterSuccess={handleRegisterSuccess}></Register>
           <ModeToggle></ModeToggle>
           </>
         }

@@ -14,6 +14,7 @@ import {
 import { Button } from "./ui/button";
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
 import { Terminal } from 'lucide-react';
+import { toast } from './ui/use-toast';
 
 
 
@@ -27,6 +28,7 @@ export const Register = () => {
     password: ''
   });
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState("");
 
   const handleInputChange = (event:any) => {
     const { name, value } = event.target;
@@ -54,6 +56,7 @@ export const Register = () => {
       if (responseData.toLowerCase().includes("user registered")) {
         console.log('Utente registrato con successo!');
         
+        
 
         setFormData({
           name: '',
@@ -61,9 +64,11 @@ export const Register = () => {
           email: '',
           password: ''
         });
+        toast({ description: 'Registrazione avvenuta con successo!' });
         // Puoi fare ulteriori azioni qui, se necessario
       } else {
         // Altrimenti, la risposta non è come previsto
+        setError('Errore durante la registrazione. Si prega di riprovare.');
         console.error('La risposta dall\'API non è come previsto:', responseData);
       }
   
@@ -82,6 +87,7 @@ export const Register = () => {
       <DialogContent className="sm:max-w-[425px]">
         <h2 className='text-4x1 font-bold'>Register</h2>
       <form onSubmit={handleSubmit}>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
         <Label>
           Name:
           <Input type="text" name="name" value={formData.name} onChange={handleInputChange} />

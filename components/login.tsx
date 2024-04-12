@@ -12,11 +12,23 @@ import {
   import { Input } from "@/components/ui/input";
   import { Label } from "@/components/ui/label";
 import { Button } from "./ui/button";
+import { useToast } from './ui/use-toast';
 
 
 
 
-export const Login = ({onLoginSuccess}) => {
+export const Login = ({onLoginSuccess, onLoginError}) => {
+  const { toast } = useToast()
+  const [error, setError] = useState("");
+  const handleToast = () => {
+    if (2 > 1) {
+      toast({
+        description: "Login has been successful"
+      })
+    }
+  }
+  
+  
 
   
   const [formData, setFormData] = useState({
@@ -57,6 +69,7 @@ export const Login = ({onLoginSuccess}) => {
         localStorage.setItem('isLoggedin', 'true');
         onLoginSuccess(responseData.username);
         
+        
 
         setFormData({
           
@@ -68,9 +81,12 @@ export const Login = ({onLoginSuccess}) => {
       } else {
         // Altrimenti, la risposta non è come previsto
         console.error('La risposta dall\'API non è come previsto:', responseData);
+        setError('Credenziali non valide. Si prega di riprovare.');
+        onLoginError()
       }
   
     } catch (error) {
+      
       console.error('Errore durante la registrazione:', error);
     }
   };
@@ -83,8 +99,9 @@ export const Login = ({onLoginSuccess}) => {
         <Button variant="outline">Login</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <h2 className='text-4x1 font-bold'>Login</h2>
+        <h2 className='text-6x1 font-bold'>Login</h2>
       <form onSubmit={handleSubmit}>
+      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Visualizza l'errore se presente */}
         
       <Label>
         Username:
