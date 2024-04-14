@@ -78,7 +78,7 @@ export const Header = () => {
           <AvatarFallback>CN</AvatarFallback>
           </Avatar></Button>
           
-          
+          <Link href={'/profile'}><Button>Profile</Button></Link>
           
           <Button variant={"outline"} onClick={handleLogout}>Logout</Button>
           <ModeToggle></ModeToggle>

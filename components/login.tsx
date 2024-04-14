@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 
+
 import {
     Dialog,
     DialogClose,
@@ -13,6 +14,8 @@ import {
   import { Label } from "@/components/ui/label";
 import { Button } from "./ui/button";
 import { useToast } from './ui/use-toast';
+import { useRouter } from 'next/navigation';
+
 
 
 
@@ -20,6 +23,7 @@ import { useToast } from './ui/use-toast';
 export const Login = ({onLoginSuccess, onLoginError}) => {
   const { toast } = useToast()
   const [error, setError] = useState("");
+  
   const handleToast = () => {
     if (2 > 1) {
       toast({
@@ -59,7 +63,9 @@ export const Login = ({onLoginSuccess, onLoginError}) => {
         body: JSON.stringify(formData)
       });
   
-      const responseData = await response.json(); // Leggi la risposta come testo
+      const responseData = await response.json();
+      
+       // Leggi la risposta come testo
   
       // Verifica se la risposta contiene un messaggio di conferma
       if (responseData.username && responseData.accessToken) {
@@ -68,6 +74,7 @@ export const Login = ({onLoginSuccess, onLoginError}) => {
         localStorage.setItem('username', responseData.username);
         localStorage.setItem('isLoggedin', 'true');
         onLoginSuccess(responseData.username);
+        
         
         
 
@@ -105,16 +112,16 @@ export const Login = ({onLoginSuccess, onLoginError}) => {
         
       <Label>
         Username:
-        <Input className='m-2' type="text" name="username" value={formData.username} onChange={handleInputChange} />
+        <Input  type="text" name="username" value={formData.username} onChange={handleInputChange} />
       </Label>
       
       
       <Label>
         Password:
-        <Input className='mt-2' type="password" name="password" value={formData.password} onChange={handleInputChange} />
+        <Input  type="password" name="password" value={formData.password} onChange={handleInputChange} />
       </Label>
       
-      <Button className='mt-4' variant={"outline"} type="submit"> Login</Button>
+      <Button className='mt-4 w-full' variant={"outline"} type="submit"> Login</Button>
       
     </form>
       

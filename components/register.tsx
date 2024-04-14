@@ -18,7 +18,7 @@ import { toast } from './ui/use-toast';
 
 
 
-export const Register = () => {
+export const Register = (onRegisterSuccess) => {
 
   
   const [formData, setFormData] = useState({
@@ -107,7 +107,7 @@ export const Register = () => {
         <Input type="password" name="password" value={formData.password} onChange={handleInputChange} />
       </Label>
       
-      <Button className='mt-4' variant={"outline"} type="submit"> Register</Button>
+      <Button className='mt-4 w-full' variant={"outline"} type="submit"> Register</Button>
       
     </form>
       
