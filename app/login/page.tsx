@@ -1,38 +1,29 @@
 "use client"
 
-import React, { useState } from 'react';
+import Link from "next/link"
 
-
+import { Button } from "@/components/ui/button"
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    
-    DialogTrigger,
-  } from "@/components/ui/dialog"
-  import { Input } from "@/components/ui/input";
-  import { Label } from "@/components/ui/label";
-import { Button } from "./ui/button";
-import { useToast } from './ui/use-toast';
-import { useRouter } from 'next/navigation';
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { ModeToggle } from "@/components/mode-toggle"
 
+const  LoginForm = () => {
 
-
-
-
-
-export const Login = ({onLoginSuccess, onLoginError}) => {
-  const { toast } = useToast()
+    const { toast } = useToast()
   const [error, setError] = useState("");
   const router = useRouter();
   
-  const handleToast = () => {
-    if (2 > 1) {
-      toast({
-        description: "Login has been successful"
-      })
-    }
-  }
+  
   
   
 
@@ -75,11 +66,10 @@ export const Login = ({onLoginSuccess, onLoginError}) => {
         localStorage.setItem('accessToken', responseData.token);
         localStorage.setItem('username', responseData.username);
         localStorage.setItem('isLoggedin', 'true');
-        onLoginSuccess(responseData.username);
-        router.push('/profile');
         toast({
           description: "Login has been successful"
         })
+        router.push('/');
         
         
         
@@ -95,7 +85,7 @@ export const Login = ({onLoginSuccess, onLoginError}) => {
         // Altrimenti, la risposta non è come previsto
         console.error('La risposta dall\'API non è come previsto:', responseData);
         setError('Credenziali non valide. Si prega di riprovare.');
-        onLoginError()
+        
       }
   
     } catch (error) {
@@ -103,16 +93,21 @@ export const Login = ({onLoginSuccess, onLoginError}) => {
       console.error('Errore durante la registrazione:', error);
     }
   };
-
-
-
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Login</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <h2 className='text-6x1 font-bold'>Login</h2>
+    <>
+    <div className="toggle absolute top-5 right-5">
+    <ModeToggle></ModeToggle>
+    </div>
+    
+    <Card className="mx-auto my-auto max-w-sm ">
+      <CardHeader>
+        <CardTitle className="text-6x1 font-bold">Login</CardTitle>
+        <CardDescription>
+          Enter your email below to login to your account
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+      
       <form onSubmit={handleSubmit}>
       {error && <p style={{ color: 'red' }}>{error}</p>} {/* Visualizza l'errore se presente */}
         
@@ -127,12 +122,15 @@ export const Login = ({onLoginSuccess, onLoginError}) => {
         <Input  type="password" name="password" value={formData.password} onChange={handleInputChange} />
       </Label>
       
-      <Button className='mt-4 w-full' variant={"outline"} type="submit"> Login</Button>
+      <Button className='mt-4 w-full' variant={"default"} type="submit"> Sign Up</Button>
+      <p className="font-bold text-sm mt-4">You are not registered yet? <Link href="/register"><Button className="size-sm" variant={"link"}>Register</Button></Link></p>
       
     </form>
-      
-    
-      </DialogContent>
-    </Dialog>
+      </CardContent>
+    </Card>
+    </>
   )
 }
+
+
+export default LoginForm;

@@ -9,8 +9,9 @@ import { Button } from "@/components/ui/button";
 
 import { Login } from "@/components/login";
 import { Register } from "@/components/register";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "@/components/header";
+import { useRouter } from "next/navigation";
 
 
 
@@ -18,12 +19,6 @@ import { Header } from "@/components/header";
 
 
 export default function Home() {
-
-  
-  
-  
- 
-
 
 
   return (

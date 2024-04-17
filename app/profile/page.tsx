@@ -16,7 +16,7 @@ const UpdateUser = () => {
   const  username  = localStorage.getItem('username')
   
   const [userData, setUserData] = useState({
-    name: '',
+    
     username: '',
     email: '',
     password: ''
@@ -94,10 +94,7 @@ const UpdateUser = () => {
         <h2 className='font-bold
           text-2xl'>Edit Profile</h2>
           <form onSubmit={handleSubmit}>
-            <div className='mb-2'>
-              <Label htmlFor="name">Name:</Label>
-              <Input type="text" id="name" name="name" value={userData.name} onChange={handleChange} />
-            </div>
+            
             <div className='mb-2'>
               <Label htmlFor="username">Username:</Label>
               <Input type="text" id="username" name="username" value={userData.username} onChange={handleChange} />

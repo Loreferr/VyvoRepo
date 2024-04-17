@@ -2,32 +2,31 @@
 
 import React, { useState } from 'react';
 
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    
-    DialogTrigger,
-  } from "@/components/ui/dialog"
+
   import { Input } from "@/components/ui/input";
   import { Label } from "@/components/ui/label";
-import { Button } from "./ui/button";
-import { Alert, AlertDescription, AlertTitle } from './ui/alert';
+
 import { Terminal } from 'lucide-react';
-import { toast } from './ui/use-toast';
+
+import { ModeToggle } from '@/components/mode-toggle';
+import  {Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 
 
-export const Register = (onRegisterSuccess) => {
-
-  
+export const Register = () => {
+const router = useRouter();
+    const { toast } = useToast()
   const [formData, setFormData] = useState({
     
     username: '',
     email: '',
     password: ''
   });
-  const [open, setOpen] = useState(false);
+  
   const [error, setError] = useState("");
 
   const handleInputChange = (event:any) => {
@@ -55,8 +54,10 @@ export const Register = (onRegisterSuccess) => {
       // Verifica se la risposta contiene un messaggio di conferma
       if (responseData.toLowerCase().includes("user registered success")) {
         console.log('Utente registrato con successo!');
-        
-        
+        toast({
+            description: "User Registered"
+          })
+        router.push('/login');
 
         setFormData({
           
@@ -80,36 +81,48 @@ export const Register = (onRegisterSuccess) => {
 
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Register</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <h2 className='text-4x1 font-bold'>Register</h2>
+    <>
+    <div className="toggle absolute top-5 right-5">
+    <ModeToggle></ModeToggle>
+    </div>
+    
+    <Card className="mx-auto my-auto max-w-sm ">
+      <CardHeader>
+        <CardTitle className="text-6x1 font-bold">Register</CardTitle>
+        <CardDescription>
+        Enter your information to create an account
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+      
       <form onSubmit={handleSubmit}>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Visualizza l'errore se presente */}
         
       <Label>
         Username:
-        <Input type="text" name="username" value={formData.username} onChange={handleInputChange} />
+        <Input  type="text" name="username" value={formData.username} onChange={handleInputChange} />
       </Label>
-      
       <Label>
         Email:
-        <Input type="email" name="email" value={formData.email} onChange={handleInputChange} />
+        <Input  type="email" name="email" value={formData.email} onChange={handleInputChange} />
       </Label>
       
       <Label>
         Password:
-        <Input type="password" name="password" value={formData.password} onChange={handleInputChange} />
+        <Input  type="password" name="password" value={formData.password} onChange={handleInputChange} />
       </Label>
       
-      <Button className='mt-4 w-full' variant={"outline"} type="submit"> Register</Button>
+      <Button className='mt-4 w-full' variant={"outline"} type="submit"> Sign Up</Button>
+      <p className="font-bold text-sm mt-4">Already registered? <Link href="/login"><Button className="size-sm" variant={"link"}>Login</Button></Link></p>
       
     </form>
+      </CardContent>
+    </Card>
+    </>
       
     
-      </DialogContent>
-    </Dialog>
+      
   )
 }
+
+export default Register

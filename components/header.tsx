@@ -5,15 +5,18 @@ import { Button } from './ui/button'
 import { Login } from './login'
 import { Register } from './register'
 import { ModeToggle } from './mode-toggle';
-import { Dropdownheader } from './dropdownheader'
+
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import Link from 'next/link'
 import { toast } from './ui/use-toast'
+
+import { useRouter } from 'next/navigation'
 
 
 export const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const router = useRouter();
   const login = window.localStorage.getItem('isLoggedin')
   
   const handleRegisterSuccess = () => {
@@ -50,6 +53,7 @@ export const Header = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('isLoggedin');
     setUsername('');
+    router.push('/login')
     
   };
 
